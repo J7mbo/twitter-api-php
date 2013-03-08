@@ -14,6 +14,7 @@ Instructions:
 
 Put this data into the following format and use the following code example (contained in index.php)
 
+```php
 require_once('TwitterAPIExchange.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
@@ -38,6 +39,6 @@ $postfields = array(
 $twitter = new TwitterAPIExchange($settings);
 echo $twitter->buildOauth($url, $requestMethod)
          ->setPostfields($postfields)
-         ->performRequest();
+         ->performRequest();```
 
 And that's it!
