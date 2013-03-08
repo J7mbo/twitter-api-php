@@ -7,10 +7,10 @@ Using this wrapper, API calls can be performed using only a few parameters.
 
 Instructions:
 
-> Create a twitter app: https://dev.twitter.com/apps/, enable read/write access in apps, and grab your access tokens.
-> Choose a URL to make a request to from: https://dev.twitter.com/docs/api/1.1/ (example https://api.twitter.com/1.1/blocks/create.json)
-> Choose the corresponding request method for the URL above (either GET or POST)
-> Choose your postfields (example 'screen_name' => 'usernameToBlock')
+- [x] Create a twitter app: https://dev.twitter.com/apps/, enable read/write access in apps, and grab your access tokens.
+- [x] Choose a URL to make a request to from: https://dev.twitter.com/docs/api/1.1/ (example https://api.twitter.com/1.1/blocks/create.json)
+- [x] Choose the corresponding request method for the URL above (either GET or POST)
+- [x] Choose your postfields (example 'screen_name' => 'usernameToBlock')
 
 Put this data into the following format and use the following code example (contained in index.php)
 
