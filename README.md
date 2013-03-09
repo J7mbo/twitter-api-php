@@ -42,4 +42,4 @@ echo $twitter->buildOauth($url, $requestMethod)
          ->performRequest();
 ```
 
-And that's it!
+And that's it! Thanks to @lackovic10 and also @rivers on SO!
