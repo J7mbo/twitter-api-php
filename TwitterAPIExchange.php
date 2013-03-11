@@ -18,6 +18,7 @@ class TwitterAPIExchange
     private $consumer_key;
     private $consumer_secret;
     private $postfields;
+    private $getfield;
     protected $oauth;
     public $url;
 
@@ -58,8 +59,39 @@ class TwitterAPIExchange
      */
     public function setPostfields(array $array)
     {
+        if (!is_null($this->getGetfield())) 
+        { 
+            exit('You can only choose get OR post fields.'); 
+        }
         $this->postfields = $array;
         return $this;
+    }
+    
+    /**
+     * Set getfield string, example: '?screen_name=J7mbo'
+     * 
+     * @param string $string Get key and value pairs as string
+     * @return \TwitterAPIExchange Instance of self for method chaining
+     */
+    public function setGetfield($string)
+    {
+        if (!is_null($this->getPostfields())) 
+        { 
+            exit('You can only choose get OR post fields.'); 
+        }
+        
+        $this->getfield = $string;
+        return $this;
+    }
+    
+    /**
+     * Get getfield string (simple getter)
+     * 
+     * @return string $this->getfields
+     */
+    public function getGetfield()
+    {
+        return $this->getfield;
     }
     
     /**
@@ -101,6 +133,18 @@ class TwitterAPIExchange
             'oauth_version' => '1.0'
         );
         
+        $getfield = $this->getGetfield();
+        
+        if (!is_null($getfield))
+        {
+            $getfields = str_replace('?', '', explode('&', $getfield));
+            foreach ($getfields as $g)
+            {
+                $split = explode('=', $g);
+                $oauth[$split[0]] = $split[1];
+            }
+        }
+        
         $base_info = $this->buildBaseString($url, $requestMethod, $oauth);
         $composite_key = rawurlencode($consumer_secret) . '&' . rawurlencode($oauth_access_token_secret);
         $oauth_signature = base64_encode(hash_hmac('sha1', $base_info, $composite_key, true));
@@ -120,18 +164,35 @@ class TwitterAPIExchange
      */
     public function performRequest($return = true)
     {
-        if(!is_bool($return)) { exit('performRequest parameter must be true or false'); }
+        if (!is_bool($return)) 
+        { 
+            exit('performRequest parameter must be true or false'); 
+        }
         
         $header = array($this->buildAuthorizationHeader($this->oauth), 'Expect:');
         
+        $getfield = $this->getGetfield();
+        $postfields = $this->getPostfields();
+        
         $options = array( 
             CURLOPT_HTTPHEADER => $header,
-            CURLOPT_POSTFIELDS => $this->getPostfields(),
             CURLOPT_HEADER => false,
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false
         );
+        
+        if (!is_null($postfields))
+        {
+            $options[CURLOPT_POSTFIELDS] = $postfields;
+        }
+        else
+        {
+            if ($getfield !== '')
+            {
+                $options[CURLOPT_URL] .= $getfield;
+            }
+        }
 
         $feed = curl_init();
         curl_setopt_array($feed, $options);

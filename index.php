@@ -20,9 +20,18 @@ $postfields = array(
     'skip_status' => '1'
 );
 
-/** Perform the request and echo the response **/
+/** Perform a POST request and echo the response **/
 $twitter = new TwitterAPIExchange($settings);
 echo $twitter->buildOauth($url, $requestMethod)
-         ->setPostfields($postfields)
-         ->performRequest();
+             ->setPostfields($postfields)
+             ->performRequest();
 
+/** Perform a GET request and echo the response **/
+/** Note: Set the GET field BEFORE calling buildOauth(); **/
+$url = 'https://api.twitter.com/1.1/followers/ids.json';
+$getfield = '?username=J7mbo';
+$requestMethod = 'GET';
+$twitter = new TwitterAPIExchange($settings);
+echo $twitter->setGetfield($getfield)
+             ->buildOauth($url, $requestMethod)
+             ->performRequest();
