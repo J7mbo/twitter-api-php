@@ -15,14 +15,15 @@ Instructions:
 Put this data into the following format and use the following code example (contained in index.php)
 
 ```php
+<?php
 require_once('TwitterAPIExchange.php');
 
 /** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 $settings = array(
-    'oauth_access_token' => "YOUR_OAUTH_ACCESS_TOKEN",
-    'oauth_access_token_secret' => "YOUR_OAUTH_ACCESS_TOKEN_SECRET",
-    'consumer_key' => "YOUR_CONSUMER_KEY",
-    'consumer_secret' => "YOUR_CONSUMER_SECRET"
+    'oauth_access_token' => "",
+    'oauth_access_token_secret' => "",
+    'consumer_key' => "",
+    'consumer_secret' => ""
 );
 
 /** URL for REST request, see: https://dev.twitter.com/docs/api/1.1/ **/
@@ -35,11 +36,21 @@ $postfields = array(
     'skip_status' => '1'
 );
 
-/** Perform the request and echo the response **/
+/** Perform a POST request and echo the response **/
 $twitter = new TwitterAPIExchange($settings);
 echo $twitter->buildOauth($url, $requestMethod)
-         ->setPostfields($postfields)
-         ->performRequest();
+             ->setPostfields($postfields)
+             ->performRequest();
+
+/** Perform a GET request and echo the response **/
+/** Note: Set the GET field BEFORE calling buildOauth(); **/
+$url = 'https://api.twitter.com/1.1/followers/ids.json';
+$getfield = '?username=J7mbo';
+$requestMethod = 'GET';
+$twitter = new TwitterAPIExchange($settings);
+echo $twitter->setGetfield($getfield)
+             ->buildOauth($url, $requestMethod)
+             ->performRequest();      
 ```
 
 And that's it! Thanks to @lackovic10 and also @rivers on SO!
