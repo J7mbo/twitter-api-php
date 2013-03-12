@@ -104,6 +104,12 @@ class TwitterAPIExchange
         return $this->postfields;
     }
     
+    public function search($url)
+    {
+        $url = 'http://search.twitter.com/search.json';
+        echo file_get_contents($url . $this->getGetfield());
+    }
+    
     /**
      * Build the Oauth object using params set in construct and additionals
      * passed to this method. For v1.1, see: https://dev.twitter.com/docs/api/1.1
@@ -117,6 +123,11 @@ class TwitterAPIExchange
         if (strtolower($requestMethod) !== 'post' && strtolower($requestMethod) !== 'get')
         {
             exit('Request method must be either POST or GET');
+        }
+        
+        if (strstr($url, 'search/tweets'))
+        {
+            $this->search($url);
         }
         
         $consumer_key = $this->consumer_key;
@@ -173,7 +184,7 @@ class TwitterAPIExchange
         
         $getfield = $this->getGetfield();
         $postfields = $this->getPostfields();
-        
+
         $options = array( 
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_HEADER => false,
@@ -181,7 +192,7 @@ class TwitterAPIExchange
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false
         );
-        
+
         if (!is_null($postfields))
         {
             $options[CURLOPT_POSTFIELDS] = $postfields;
