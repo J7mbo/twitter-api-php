@@ -51,6 +51,13 @@ $twitter = new TwitterAPIExchange($settings);
 echo $twitter->setGetfield($getfield)
              ->buildOauth($url, $requestMethod)
              ->performRequest();      
+             
+/** Perform a simple search (Oauth isn't needed here) **/
+$url = 'https://api.twitter.com/1.1/search/tweets.json';
+$requestMethod = 'GET';
+$twitter = new TwitterAPIExchange($settings);
+echo $twitter->setGetfield($getfield)
+             ->search($url);
 ```
 
 And that's it! Thanks to @lackovic10 and also @rivers on SO!
