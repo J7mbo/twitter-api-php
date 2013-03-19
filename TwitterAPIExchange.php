@@ -23,7 +23,7 @@ class TwitterAPIExchange
     public $url;
 
     /**
-     * Create the API access object. Requires an array of settings:
+     * Create the API access object. Requires an array of settings::
      * oauth access token, oauth access token secret, consumer key, consumer secret
      * These are all available by creating your own application on dev.twitter.com
      * Requires the cURL library
