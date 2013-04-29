@@ -34,7 +34,7 @@ class TwitterAPIExchange
     {
         if (!in_array('curl', get_loaded_extensions())) 
         {
-            exit('Install cURL first you silly bastard');
+            exit('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
         }
         
         if (!isset($settings['oauth_access_token'])
