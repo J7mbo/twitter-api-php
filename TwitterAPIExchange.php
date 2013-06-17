@@ -65,6 +65,11 @@ class TwitterAPIExchange
             throw new Exception('You can only choose get OR post fields.'); 
         }
         
+        if (isset($array['status']) && substr($array['status'], 0, 1) === '@')
+        {
+            $array['status'] = sprintf(" %s", $array['status']);
+        }
+        
         $this->postfields = $array;
         
         return $this;
