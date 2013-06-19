@@ -67,7 +67,7 @@ class TwitterAPIExchange
         
         if (isset($array['status']) && substr($array['status'], 0, 1) === '@')
         {
-            $array['status'] = sprintf(" %s", $array['status']);
+            $array['status'] = sprintf("\0%s", $array['status']);
         }
         
         $this->postfields = $array;
