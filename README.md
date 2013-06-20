@@ -4,7 +4,7 @@ Simple PHP Wrapper for Twitter API v1.1 calls
 
 **[Changelog](https://github.com/J7mbo/twitter-api-php/wiki/Changelog)** ||
 **[Examples](https://github.com/J7mbo/twitter-api-php/wiki/Twitter-API-PHP-Wiki)** ||
-**[Wiki](https://github.com/J7mbo/twitter-api-php/wiki)
+**[Wiki](https://github.com/J7mbo/twitter-api-php/wiki)**
 
 [Instructions in StackOverflow post here](http://stackoverflow.com/questions/12916539/simplest-php-example-retrieving-user-timeline-with-twitter-api-version-1-1/15314662#15314662) with examples. This post shows you how to get your tokens and more. 
 If you found it useful, please upvote / leave a comment! :)
