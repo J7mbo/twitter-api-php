@@ -11,7 +11,7 @@
  * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     http://github.com/j7mbo/twitter-api-php
  */
-class TwitterAPIExchange 
+class TwitterAPIExchange
 {
     private $oauth_access_token;
     private $oauth_access_token_secret;
@@ -193,8 +193,7 @@ class TwitterAPIExchange
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_HEADER => false,
             CURLOPT_URL => $this->url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_SSL_VERIFYPEER => false
+            CURLOPT_RETURNTRANSFER => true
         );
 
         if (!is_null($postfields))
