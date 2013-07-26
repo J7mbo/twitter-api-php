@@ -171,11 +171,11 @@ class TwitterAPIExchange
     }
     
     /**
-     * Perform the acual data retrieval from the API
+     * Perform the actual data retrieval from the API
      * 
      * @param boolean $return If true, returns data.
      * 
-     * @return json If $return param is true, returns json data.
+     * @return string json If $return param is true, returns json data.
      */
     public function performRequest($return = true)
     {
@@ -221,7 +221,7 @@ class TwitterAPIExchange
      * 
      * @param string $baseURI
      * @param string $method
-     * @param string $params
+     * @param array $params
      * 
      * @return string Built base string
      */
