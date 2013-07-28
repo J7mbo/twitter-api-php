@@ -22,6 +22,21 @@ The aim of this class is simple. You need to:
 
 You really can't get much simpler than that. Here is an example of how to use the class for a POST request to block a user, and at the bottom is an example of a GET request.
 
+Installation
+------------
+
+**Normally:** If you *don't* use composer, don't worry - just include TwitterAPIExchange.php in your application. 
+
+**Via Composer:** If you *do* use composer, here's what you add to your composer.json file to have TwitterAPIExchange.php automatically imported into your vendor's folder:
+
+    {
+        "require": {
+            "j7mbo/twitter-api-php": "dev-master"
+        }
+    }
+
+Of course, you'll then need to run `php composer.phar update`.
+
 How To Use
 ------
 #### Include the class file ####
