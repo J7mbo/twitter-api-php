@@ -1,5 +1,6 @@
 twitter-api-php
-======================
+===============
+
 Simple PHP Wrapper for Twitter API v1.1 calls
 
 [![Total Downloads](https://poser.pugx.org/j7mbo/twitter-api-php/downloads.png)](https://packagist.org/packages/j7mbo/twitter-api-php)
@@ -41,51 +42,64 @@ Installation
 Of course, you'll then need to run `php composer.phar update`.
 
 How To Use
-------
+----------
+
 #### Include the class file ####
 
-    require_once('TwitterAPIExchange.php');
+```php
+require_once('TwitterAPIExchange.php');
+```
 
 #### Set access tokens ####
 
-    $settings = array(
-        'oauth_access_token' => "YOUR_OAUTH_ACCESS_TOKEN",
-        'oauth_access_token_secret' => "YOUR_OAUTH_ACCESS_TOKEN_SECRET",
-        'consumer_key' => "YOUR_CONSUMER_KEY",
-        'consumer_secret' => "YOUR_CONSUMER_SECRET"
-    );
+```php
+$settings = array(
+    'oauth_access_token' => "YOUR_OAUTH_ACCESS_TOKEN",
+    'oauth_access_token_secret' => "YOUR_OAUTH_ACCESS_TOKEN_SECRET",
+    'consumer_key' => "YOUR_CONSUMER_KEY",
+    'consumer_secret' => "YOUR_CONSUMER_SECRET"
+);
+```
 
 #### Choose URL and Request Method ####
 
-    $url = 'https://api.twitter.com/1.1/blocks/create.json';
-    $requestMethod = 'POST';
+```php
+$url = 'https://api.twitter.com/1.1/blocks/create.json';
+$requestMethod = 'POST';
+```
 
 #### Choose POST fields ####
 
-    $postfields = array(
-        'screen_name' => 'usernameToBlock', 
-        'skip_status' => '1'
-    );
+```php
+$postfields = array(
+    'screen_name' => 'usernameToBlock', 
+    'skip_status' => '1'
+);
+```
 
 #### Perform the request! ####
 
-    $twitter = new TwitterAPIExchange($settings);
-    echo $twitter->buildOauth($url, $requestMethod)
-                 ->setPostfields($postfields)
-                 ->performRequest();
+```php
+$twitter = new TwitterAPIExchange($settings);
+echo $twitter->buildOauth($url, $requestMethod)
+    ->setPostfields($postfields)
+    ->performRequest();
+```
 
 GET Request Example
-----------------
+-------------------
 
 Set the GET field BEFORE calling buildOauth(); and everything else is the same:
 
-    $url = 'https://api.twitter.com/1.1/followers/ids.json';
-    $getfield = '?screen_name=J7mbo';
-    $requestMethod = 'GET';
+```php
+$url = 'https://api.twitter.com/1.1/followers/ids.json';
+$getfield = '?screen_name=J7mbo';
+$requestMethod = 'GET';
 
-    $twitter = new TwitterAPIExchange($settings);
-    echo $twitter->setGetfield($getfield)
-                 ->buildOauth($url, $requestMethod)
-                 ->performRequest();
+$twitter = new TwitterAPIExchange($settings);
+echo $twitter->setGetfield($getfield)
+    ->buildOauth($url, $requestMethod)
+    ->performRequest();
+```
 
 That is it! Really simple, works great with the 1.1 API. Thanks to @lackovic10 and @rivers on SO!
