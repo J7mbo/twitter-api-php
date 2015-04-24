@@ -199,7 +199,7 @@ class TwitterAPIExchange
 
         if (!is_null($postfields))
         {
-            $options[CURLOPT_POSTFIELDS] = $postfields;
+            $options[CURLOPT_POSTFIELDS] = http_build_query($postfields);
         }
         else
         {
