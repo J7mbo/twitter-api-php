@@ -21,6 +21,7 @@ class TwitterAPIExchange
     private $getfield;
     protected $oauth;
     public $url;
+    public $requestMethod;
 
     /**
      * Create the API access object. Requires an array of settings::
@@ -173,6 +174,7 @@ class TwitterAPIExchange
         $oauth['oauth_signature'] = $oauth_signature;
         
         $this->url = $url;
+        $this->requestMethod = $requestMethod;
         $this->oauth = $oauth;
         
         return $this;
@@ -192,6 +194,10 @@ class TwitterAPIExchange
             throw new Exception('performRequest parameter must be true or false'); 
         }
         
+        if (!isset($this->oauth['oauth_signature'])) {
+            $this->buildOauth($this->url, $this->requestMethod);
+        }
+
         $header = array($this->buildAuthorizationHeader($this->oauth), 'Expect:');
         
         $getfield = $this->getGetfield();
