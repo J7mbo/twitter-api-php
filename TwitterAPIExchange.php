@@ -73,6 +73,11 @@ class TwitterAPIExchange
         
         $this->postfields = $array;
         
+        // rebuild oAuth
+        if (isset($this->oauth['oauth_signature'])) {
+            $this->buildOauth($this->url, $this->requestMethod);
+        }
+
         return $this;
     }
     
@@ -194,10 +199,6 @@ class TwitterAPIExchange
             throw new Exception('performRequest parameter must be true or false'); 
         }
         
-        if (!isset($this->oauth['oauth_signature'])) {
-            $this->buildOauth($this->url, $this->requestMethod);
-        }
-
         $header = array($this->buildAuthorizationHeader($this->oauth), 'Expect:');
         
         $getfield = $this->getGetfield();
