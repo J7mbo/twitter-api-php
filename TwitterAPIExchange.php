@@ -248,7 +248,7 @@ class TwitterAPIExchange
         
         foreach($params as $key=>$value)
         {
-            $return[] = "$key=" . $value;
+            $return[] = rawurlencode($key) . '=' . rawurlencode($value);
         }
         
         return $method . "&" . rawurlencode($baseURI) . '&' . rawurlencode(implode('&', $return)); 
