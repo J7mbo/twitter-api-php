@@ -49,7 +49,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $settings  = [];
+        $settings  = array();
 
         /** Because I'm lazy... **/
         $reflector = new \ReflectionClass($this);
