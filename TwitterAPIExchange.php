@@ -268,7 +268,10 @@ class TwitterAPIExchange
         
         foreach($oauth as $key => $value)
         {
-            $values[] = "$key=\"" . rawurlencode($value) . "\"";
+            if (in_array($key, array('oauth_consumer_key', 'oauth_nonce', 'oauth_signature',
+                'oauth_signature_method', 'oauth_timestamp', 'oauth_token', 'oauth_version'))) {
+                $values[] = "$key=\"" . rawurlencode($value) . "\"";
+            }
         }
         
         $return .= implode(', ', $values);
