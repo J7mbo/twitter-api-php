@@ -176,9 +176,9 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
 
         $url    = 'https://upload.twitter.com/1.1/media/upload.json';
         $method = 'POST';
-        $params = [
+        $params = array(
             'media_data' => $data
-        ];
+        );
 
         $data     = $this->exchange->request($url, $method, $params);
         $expected = 'image\/png';
@@ -188,7 +188,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         /** Store the media id for later **/
         $data = @json_decode($data, true);
 
-        $this->assertArrayHasKey('media_id', is_array($data) ? $data : []);
+        $this->assertArrayHasKey('media_id', is_array($data) ? $data : array());
 
         self::$mediaId = $data['media_id'];
     }
@@ -207,10 +207,10 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
 
         $url    = 'https://api.twitter.com/1.1/statuses/update.json';
         $method = 'POST';
-        $params = [
+        $params = array(
             'status' => 'TEST TWEET TO BE DELETED' . rand(),
             'media_ids' => self::$mediaId
-        ];
+        );
 
         $data     = $this->exchange->request($url, $method, $params);
         $expected = 'TEST TWEET TO BE DELETED';
@@ -220,7 +220,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         /** Store the tweet id for testStatusesDestroy() **/
         $data = @json_decode($data, true);
 
-        $this->assertArrayHasKey('id_str', is_array($data) ? $data : []);
+        $this->assertArrayHasKey('id_str', is_array($data) ? $data : array());
 
         self::$tweetId = $data['id_str'];
 
@@ -242,9 +242,9 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
 
         $url    = sprintf('https://api.twitter.com/1.1/statuses/destroy/%d.json', self::$tweetId);
         $method = 'POST';
-        $params = [
+        $params = array(
             'id' => self::$tweetId
-        ];
+        );
 
         $data     = $this->exchange->request($url, $method, $params);
         $expected = 'TEST TWEET TO BE DELETED';
