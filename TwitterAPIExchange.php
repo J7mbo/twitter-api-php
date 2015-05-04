@@ -13,14 +13,49 @@
  */
 class TwitterAPIExchange
 {
+    /**
+     * @var string
+     */
     private $oauth_access_token;
+
+    /**
+     * @var string
+     */
     private $oauth_access_token_secret;
+
+    /**
+     * @var string
+     */
     private $consumer_key;
+
+    /**
+     * @var string
+     */
     private $consumer_secret;
+
+    /**
+     * @var array
+     */
     private $postfields;
+
+    /**
+     * @var string
+     */
     private $getfield;
+
+    /**
+     * @var mixed
+     */
     protected $oauth;
+
+    /**
+     * @var string
+     */
     public $url;
+
+    /**
+     * @var string
+     */
     public $requestMethod;
 
     /**
@@ -28,7 +63,9 @@ class TwitterAPIExchange
      * oauth access token, oauth access token secret, consumer key, consumer secret
      * These are all available by creating your own application on dev.twitter.com
      * Requires the cURL library
-     * 
+     *
+     * @throws \Exception When cURL isn't installed or incorrect settings parameters are provided
+     *
      * @param array $settings
      */
     public function __construct(array $settings)
@@ -51,12 +88,14 @@ class TwitterAPIExchange
         $this->consumer_key = $settings['consumer_key'];
         $this->consumer_secret = $settings['consumer_secret'];
     }
-    
+
     /**
      * Set postfields array, example: array('screen_name' => 'J7mbo')
-     * 
+     *
      * @param array $array Array of parameters to send to API
-     * 
+     *
+     * @throws \Exception When you are trying to set both get and post fields
+     *
      * @return TwitterAPIExchange Instance of self for method chaining
      */
     public function setPostfields(array $array)
@@ -85,6 +124,8 @@ class TwitterAPIExchange
      * Set getfield string, example: '?screen_name=J7mbo'
      * 
      * @param string $string Get key and value pairs as string
+     *
+     * @throws \Exception
      * 
      * @return \TwitterAPIExchange Instance of self for method chaining
      */
@@ -127,9 +168,12 @@ class TwitterAPIExchange
     /**
      * Build the Oauth object using params set in construct and additionals
      * passed to this method. For v1.1, see: https://dev.twitter.com/docs/api/1.1
-     * 
+     *
      * @param string $url The API url to use. Example: https://api.twitter.com/1.1/search/tweets.json
      * @param string $requestMethod Either POST or GET
+     *
+     * @throws \Exception
+     *
      * @return \TwitterAPIExchange Instance of self for method chaining
      */
     public function buildOauth($url, $requestMethod)
@@ -139,12 +183,12 @@ class TwitterAPIExchange
             throw new Exception('Request method must be either POST or GET');
         }
         
-        $consumer_key = $this->consumer_key;
-        $consumer_secret = $this->consumer_secret;
-        $oauth_access_token = $this->oauth_access_token;
+        $consumer_key              = $this->consumer_key;
+        $consumer_secret           = $this->consumer_secret;
+        $oauth_access_token        = $this->oauth_access_token;
         $oauth_access_token_secret = $this->oauth_access_token_secret;
         
-        $oauth = array( 
+        $oauth = array(
             'oauth_consumer_key' => $consumer_key,
             'oauth_nonce' => time(),
             'oauth_signature_method' => 'HMAC-SHA1',
@@ -158,10 +202,16 @@ class TwitterAPIExchange
         if (!is_null($getfield))
         {
             $getfields = str_replace('?', '', explode('&', $getfield));
+
             foreach ($getfields as $g)
             {
                 $split = explode('=', $g);
-                $oauth[$split[0]] = $split[1];
+
+                /** In case a null is passed through **/
+                if (isset($split[1]))
+                {
+                    $oauth[$split[0]] = $split[1];
+                }
             }
         }
         
@@ -188,7 +238,9 @@ class TwitterAPIExchange
     /**
      * Perform the actual data retrieval from the API
      * 
-     * @param boolean $return If true, returns data.
+     * @param boolean $return If true, returns data. This is left in for backward compatibility reasons
+     *
+     * @throws \Exception
      * 
      * @return string json If $return param is true, returns json data.
      */
@@ -198,13 +250,13 @@ class TwitterAPIExchange
         { 
             throw new Exception('performRequest parameter must be true or false'); 
         }
-        
-        $header = array($this->buildAuthorizationHeader($this->oauth), 'Expect:');
+
+        $header =  array($this->buildAuthorizationHeader($this->oauth), 'Expect:');
         
         $getfield = $this->getGetfield();
         $postfields = $this->getPostfields();
 
-        $options = array( 
+        $options = array(
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_HEADER => false,
             CURLOPT_URL => $this->url,
@@ -229,7 +281,7 @@ class TwitterAPIExchange
         $json = curl_exec($feed);
         curl_close($feed);
 
-        if ($return) { return $json; }
+        return $json;
     }
     
     /**
@@ -237,7 +289,7 @@ class TwitterAPIExchange
      * 
      * @param string $baseURI
      * @param string $method
-     * @param array $params
+     * @param array  $params
      * 
      * @return string Built base string
      */
@@ -246,7 +298,7 @@ class TwitterAPIExchange
         $return = array();
         ksort($params);
         
-        foreach($params as $key=>$value)
+        foreach($params as $key => $value)
         {
             $return[] = rawurlencode($key) . '=' . rawurlencode($value);
         }
@@ -261,7 +313,7 @@ class TwitterAPIExchange
      * 
      * @return string $return Header used by cURL for request
      */    
-    private function buildAuthorizationHeader($oauth) 
+    private function buildAuthorizationHeader(array $oauth)
     {
         $return = 'Authorization: OAuth ';
         $values = array();
@@ -278,4 +330,28 @@ class TwitterAPIExchange
         return $return;
     }
 
+    /**
+     * Helper method to perform our request
+     *
+     * @param string $url
+     * @param string $method
+     * @param string $data
+     *
+     * @throws \Exception
+     *
+     * @return string The json response from the server
+     */
+    public function request($url, $method = 'get', $data = null)
+    {
+        if (strtolower($method) === 'get')
+        {
+            $this->setGetfield($data);
+        }
+        else
+        {
+            $this->setPostfields($data);
+        }
+
+        return $this->buildOauth($url, $method)->performRequest();
+    }
 }
