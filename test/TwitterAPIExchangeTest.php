@@ -69,7 +69,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesMentionsTimeline()
     {
-        $this->markTestSkipped();
         $url    = 'https://api.twitter.com/1.1/statuses/mentions_timeline.json';
         $method = 'GET';
         $params = '?max_id=595150043381915648';
@@ -87,7 +86,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesUserTimeline()
     {
-        $this->markTestSkipped();
         $url    = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
         $method = 'GET';
         $params = '?user_id=3232926711';
@@ -105,7 +103,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesHomeTimeline()
     {
-        $this->markTestSkipped();
         $url    = 'https://api.twitter.com/1.1/statuses/home_timeline.json';
         $method = 'GET';
         $params = '?user_id=3232926711';
@@ -123,7 +120,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesRetweetsOfMe()
     {
-        $this->markTestSkipped();
         $url    = 'https://api.twitter.com/1.1/statuses/retweets_of_me.json';
         $method = 'GET';
 
@@ -140,7 +136,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesRetweetsOfId()
     {
-        $this->markTestSkipped();
         $url    = 'https://api.twitter.com/1.1/statuses/retweets/595155660494471168.json';
         $method = 'GET';
 
@@ -157,7 +152,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesShowId()
     {
-        $this->markTestSkipped();
         $url    = 'https://api.twitter.com/1.1/statuses/show.json';
         $method = 'GET';
         $params = '?id=595155660494471168';
@@ -177,13 +171,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testMediaUpload()
     {
-        /**
-         *=========
-         * =========
-         *  This test is currently failing because media/upload doesn't work yet
-         * =========
-         *=========
-         */
         $file = file_get_contents(__DIR__ . '/img.png');
         $data = base64_encode($file);
 
@@ -194,7 +181,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         ];
 
         $data     = $this->exchange->request($url, $method, $params);
-        $expected = 'image/png';
+        $expected = 'image\/png';
 
         $this->assertContains($expected, $data);
 
@@ -204,8 +191,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('media_id', is_array($data) ? $data : []);
 
         self::$mediaId = $data['media_id'];
-
-        var_dump(self::$mediaId);
     }
 
     /**
@@ -215,7 +200,6 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatusesUpdate()
     {
-        $this->markTestSkipped();
         if (!self::$mediaId)
         {
             $this->fail('Cannot /update status because /upload failed');
@@ -224,7 +208,8 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         $url    = 'https://api.twitter.com/1.1/statuses/update.json';
         $method = 'POST';
         $params = [
-            'status' => 'TEST TWEET TO BE DELETED' . rand()
+            'status' => 'TEST TWEET TO BE DELETED' . rand(),
+            'media_ids' => self::$mediaId
         ];
 
         $data     = $this->exchange->request($url, $method, $params);
@@ -246,11 +231,10 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
     /**
      * POST statuses/destroy/:id
      *
-     * @see https://dev.twitter.com/rest/reference/post/statuses/destroy/%3Aid
+     * @see https://dev.twitter.com/rest/reference/post/statuses/destroy/:id
      */
     public function testStatusesDestroy()
     {
-        $this->markTestSkipped();
         if (!self::$tweetId)
         {
             $this->fail('Cannot /destroy status because /update failed');
