@@ -3,7 +3,7 @@ twitter-api-php
 Simple PHP Wrapper for Twitter API v1.1 calls
 
 [![Total Downloads](https://poser.pugx.org/j7mbo/twitter-api-php/downloads.png)](https://packagist.org/packages/j7mbo/twitter-api-php)
-[!][Build Status](https://travis-ci.org/J7mbo/twitter-api-php.svg?branch=master)](https://packagist.org/packages/j7mbo/twitter-api-php)
+[![Build Status](https://travis-ci.org/J7mbo/twitter-api-php.svg?branch=master)](https://packagist.org/packages/j7mbo/twitter-api-php)
 
 **[Changelog](https://github.com/J7mbo/twitter-api-php/wiki/Changelog)** ||
 **[Examples](https://github.com/J7mbo/twitter-api-php/wiki/Twitter-API-PHP-Wiki)** ||
