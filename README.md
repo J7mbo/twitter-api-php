@@ -3,12 +3,11 @@ twitter-api-php
 Simple PHP Wrapper for Twitter API v1.1 calls
 
 [![Total Downloads](https://poser.pugx.org/j7mbo/twitter-api-php/downloads.png)](https://packagist.org/packages/j7mbo/twitter-api-php)
-
+[![Build Status](https://travis-ci.org/J7mbo/twitter-api-php.svg?branch=master)](https://packagist.org/packages/j7mbo/twitter-api-php)
 
 **[Changelog](https://github.com/J7mbo/twitter-api-php/wiki/Changelog)** ||
 **[Examples](https://github.com/J7mbo/twitter-api-php/wiki/Twitter-API-PHP-Wiki)** ||
-**[Wiki](https://github.com/J7mbo/twitter-api-php/wiki)** ||
-**[Buy me a beer!](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KHQYGY4MM3E7J)**
+**[Wiki](https://github.com/J7mbo/twitter-api-php/wiki)**
 
 [Instructions in StackOverflow post here](http://stackoverflow.com/questions/12916539/simplest-php-example-retrieving-user-timeline-with-twitter-api-version-1-1/15314662#15314662) with examples. This post shows you how to get your tokens and more. 
 If you found it useful, please upvote / leave a comment! :)
@@ -23,14 +22,14 @@ The aim of this class is simple. You need to:
 - Choose either GET / POST (depending on the request) 
 - Choose the fields you want to send with the request (example: `array('screen_name' => 'usernameToBlock')`)
 
-You really can't get much simpler than that. Here is an example of how to use the class for a POST request to block a user, and at the bottom is an example of a GET request.
+You really can't get much simpler than that. The above bullet points are an example of how to use the class for a POST request to block a user, and at the bottom is an example of a GET request.
 
 Installation
 ------------
 
 **Normally:** If you *don't* use composer, don't worry - just include TwitterAPIExchange.php in your application. 
 
-**Via Composer:** If you *do* use composer, here's what you add to your composer.json file to have TwitterAPIExchange.php automatically imported into your vendor's folder:
+**Via Composer:** If you realise it's 2015 now and you *do* use composer, here's what you add to your composer.json file to have TwitterAPIExchange.php automatically imported into your vendor's folder:
 
     {
         "require": {
