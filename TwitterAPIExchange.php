@@ -136,7 +136,15 @@ class TwitterAPIExchange
             throw new Exception('You can only choose get OR post fields.'); 
         }
         
-        $this->getfield = $string;
+        $getfields = preg_replace('/^\?/', '', explode('&', $string));
+        $params = array();
+
+        foreach ($getfields as $field) {
+            list($key, $value) = explode('=', $field);
+            $params[$key] = $value;
+        }
+
+        $this->getfield = '?' . http_build_query($params);
         
         return $this;
     }
