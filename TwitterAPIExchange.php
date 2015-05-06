@@ -139,7 +139,8 @@ class TwitterAPIExchange
         $getfields = preg_replace('/^\?/', '', explode('&', $string));
         $params = array();
 
-        foreach ($getfields as $field) {
+        foreach ($getfields as $field)
+        {
             list($key, $value) = explode('=', $field);
             $params[$key] = $value;
         }
