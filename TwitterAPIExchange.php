@@ -210,7 +210,7 @@ class TwitterAPIExchange
                 /** In case a null is passed through **/
                 if (isset($split[1]))
                 {
-                    $oauth[$split[0]] = $split[1];
+                    $oauth[$split[0]] = urldecode($split[1]);
                 }
             }
         }
