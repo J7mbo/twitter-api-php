@@ -141,8 +141,11 @@ class TwitterAPIExchange
 
         foreach ($getfields as $field)
         {
-            list($key, $value) = explode('=', $field);
-            $params[$key] = $value;
+            if ($field !== '')
+            {
+                list($key, $value) = explode('=', $field);
+                $params[$key] = $value;
+            }
         }
 
         $this->getfield = '?' . http_build_query($params);
