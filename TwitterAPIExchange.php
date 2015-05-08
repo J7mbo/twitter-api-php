@@ -136,11 +136,19 @@ class TwitterAPIExchange
             throw new Exception('You can only choose get OR post fields.'); 
         }
         
-        $search = array('#', ',', '+', ':');
-        $replace = array('%23', '%2C', '%2B', '%3A');
-        $string = str_replace($search, $replace, $string);  
-        
-        $this->getfield = $string;
+        $getfields = preg_replace('/^\?/', '', explode('&', $string));
+        $params = array();
+
+        foreach ($getfields as $field)
+        {
+            if ($field !== '')
+            {
+                list($key, $value) = explode('=', $field);
+                $params[$key] = $value;
+            }
+        }
+
+        $this->getfield = '?' . http_build_query($params);
         
         return $this;
     }
@@ -210,7 +218,7 @@ class TwitterAPIExchange
                 /** In case a null is passed through **/
                 if (isset($split[1]))
                 {
-                    $oauth[$split[0]] = $split[1];
+                    $oauth[$split[0]] = urldecode($split[1]);
                 }
             }
         }

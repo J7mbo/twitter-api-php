@@ -254,4 +254,21 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         /** We've done this now, yay **/
         self::$tweetId = null;
     }
+
+    /**
+     * GET search/tweets
+     *
+     * @see https://dev.twitter.com/rest/reference/get/search/tweets
+     */
+    public function testCanSearchWithHashTag()
+    {
+        $url    = 'https://api.twitter.com/1.1/search/tweets.json';
+        $method = 'GET';
+        $params = '?q=#twitter';
+
+        $data = $this->exchange->request($url, $method, $params);
+        $data = (array)@json_decode($data, true);
+
+        $this->assertNotCount(1, $data);
+    }
 }
