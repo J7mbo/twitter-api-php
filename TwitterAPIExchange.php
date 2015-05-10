@@ -247,12 +247,13 @@ class TwitterAPIExchange
      * Perform the actual data retrieval from the API
      * 
      * @param boolean $return If true, returns data. This is left in for backward compatibility reasons
+     * @param array $curlOptions Additional Curl options for this request
      *
      * @throws \Exception
      * 
      * @return string json If $return param is true, returns json data.
      */
-    public function performRequest($return = true)
+    public function performRequest($return = true, $curlOptions = array())
     {
         if (!is_bool($return))
         {
@@ -270,7 +271,7 @@ class TwitterAPIExchange
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 10,
-        );
+        ) + $curlOptions;
 
         if (!is_null($postfields))
         {
@@ -352,12 +353,13 @@ class TwitterAPIExchange
      * @param string $url
      * @param string $method
      * @param string $data
+     * @param array $curlOptions
      *
      * @throws \Exception
      *
      * @return string The json response from the server
      */
-    public function request($url, $method = 'get', $data = null)
+    public function request($url, $method = 'get', $data = null, $curlOptions = array())
     {
         if (strtolower($method) === 'get')
         {
@@ -368,6 +370,6 @@ class TwitterAPIExchange
             $this->setPostfields($data);
         }
 
-        return $this->buildOauth($url, $method)->performRequest();
+        return $this->buildOauth($url, $method)->performRequest(true, $curlOptions);
     }
 }
