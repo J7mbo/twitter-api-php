@@ -254,13 +254,13 @@ class TwitterAPIExchange
      */
     public function performRequest($return = true)
     {
-        if (!is_bool($return)) 
-        { 
-            throw new Exception('performRequest parameter must be true or false'); 
+        if (!is_bool($return))
+        {
+            throw new Exception('performRequest parameter must be true or false');
         }
 
         $header =  array($this->buildAuthorizationHeader($this->oauth), 'Expect:');
-        
+
         $getfield = $this->getGetfield();
         $postfields = $this->getPostfields();
 
@@ -287,6 +287,14 @@ class TwitterAPIExchange
         $feed = curl_init();
         curl_setopt_array($feed, $options);
         $json = curl_exec($feed);
+
+        if (($error = curl_error($feed)) !== '')
+        {
+            curl_close($feed);
+
+            throw new \Exception($error);
+        }
+
         curl_close($feed);
 
         return $json;
