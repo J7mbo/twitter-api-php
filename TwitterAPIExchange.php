@@ -177,7 +177,7 @@ class TwitterAPIExchange
      * Build the Oauth object using params set in construct and additionals
      * passed to this method. For v1.1, see: https://dev.twitter.com/docs/api/1.1
      *
-     * @param string $url The API url to use. Example: https://api.twitter.com/1.1/search/tweets.json
+     * @param string $url           The API url to use. Example: https://api.twitter.com/1.1/search/tweets.json
      * @param string $requestMethod Either POST or GET
      *
      * @throws \Exception
@@ -246,8 +246,8 @@ class TwitterAPIExchange
     /**
      * Perform the actual data retrieval from the API
      * 
-     * @param boolean $return If true, returns data. This is left in for backward compatibility reasons
-     * @param array $curlOptions Additional Curl options for this request
+     * @param boolean $return      If true, returns data. This is left in for backward compatibility reasons
+     * @param array   $curlOptions Additional Curl options for this request
      *
      * @throws \Exception
      * 
@@ -353,7 +353,7 @@ class TwitterAPIExchange
      * @param string $url
      * @param string $method
      * @param string $data
-     * @param array $curlOptions
+     * @param array  $curlOptions
      *
      * @throws \Exception
      *

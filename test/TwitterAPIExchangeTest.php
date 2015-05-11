@@ -272,6 +272,9 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         $this->assertNotCount(1, $data);
     }
 
+    /**
+     * Test to check that options passed to curl do not cause any issues
+     */
     public function testAdditionalCurlOptions()
     {
         $url    = 'https://api.twitter.com/1.1/search/tweets.json';
