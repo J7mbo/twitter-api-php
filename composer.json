@@ -3,11 +3,10 @@
         "ext-curl": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.5.1"
+        "phpunit/phpunit": "~4.5,>=4.5.1"
     },
     "name": "j7mbo/twitter-api-php",
     "description": "Simple PHP Wrapper for Twitter API v1.1 calls",
-    "version": "1.0.0",
     "type": "library",
     "keywords": [
         "twitter",
@@ -24,5 +23,10 @@
     ],
     "autoload": {
         "files": ["TwitterAPIExchange.php"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
