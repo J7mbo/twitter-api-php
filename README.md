@@ -4,7 +4,8 @@ twitter-api-php
 Simple PHP Wrapper for Twitter API v1.1 calls
 
 [![Total Downloads](https://img.shields.io/packagist/dt/j7mbo/twitter-api-php.svg)](https://packagist.org/packages/j7mbo/twitter-api-php)
-[![Build Status](https://travis-ci.org/J7mbo/twitter-api-php.svg?branch=master)](https://packagist.org/packages/j7mbo/twitter-api-php)
+[![Build Status](https://travis-ci.org/J7mbo/twitter-api-php.svg?branch=master)](https://travis-ci.org/J7mbo/twitter-api-php)
+[![Version](https://badge.fury.io/gh/j7mbo%2Ftwitter-api-php.svg)](https://packagist.org/packages/j7mbo/twitter-api-php)
 
 **[Changelog](https://github.com/J7mbo/twitter-api-php/wiki/Changelog)** ||
 **[Examples](https://github.com/J7mbo/twitter-api-php/wiki/Twitter-API-PHP-Wiki)** ||
@@ -30,7 +31,7 @@ Installation
 
 **Normally:** If you *don't* use composer, don't worry - just include TwitterAPIExchange.php in your application. 
 
-**Via Composer:** If you realise it's 2015 now and you *do* use composer, here's what you add to your composer.json file to have TwitterAPIExchange.php automatically imported into your vendor's folder:
+**Via Composer:** If you realise it's 2015 now and you *do* use composer, here's what you add to your composer.json file to have TwitterAPIExchange.php automatically imported into your vendors folder:
 
     {
         "require": {
