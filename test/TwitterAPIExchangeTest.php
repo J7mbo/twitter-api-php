@@ -286,4 +286,21 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotCount(1, $data);
     }
+
+    /**
+     * Apparently users/lookup was not working with a POST
+     *
+     * @see https://github.com/J7mbo/twitter-api-php/issues/70
+     */
+    public function testIssue70()
+    {
+        $url    = 'https://api.twitter.com/1.1/users/lookup.json';
+        $method = 'POST';
+        $params = array(
+            'screen_name' => 'lifehacker'
+        );
+
+        $data = $this->exchange->request($url, $method, $params);
+        $this->assertContains('created_at', $data);
+    }
 }
