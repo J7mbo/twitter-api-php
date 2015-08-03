@@ -209,6 +209,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         $method = 'POST';
         $params = array(
             'status' => 'TEST TWEET TO BE DELETED' . rand(),
+            'possibly_sensitive' => false,
             'media_ids' => self::$mediaId
         );
 

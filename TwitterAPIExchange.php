@@ -110,6 +110,14 @@ class TwitterAPIExchange
         {
             $array['status'] = sprintf("\0%s", $array['status']);
         }
+
+        foreach ($array as $key => &$value)
+        {
+            if (is_bool($value))
+            {
+                $value = ($value === true) ? 'true' : 'false';
+            }
+        }
         
         $this->postfields = $array;
         
@@ -315,7 +323,7 @@ class TwitterAPIExchange
     {
         $return = array();
         ksort($params);
-        
+
         foreach($params as $key => $value)
         {
             $return[] = rawurlencode($key) . '=' . rawurlencode($value);
