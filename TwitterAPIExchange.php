@@ -394,7 +394,7 @@ class TwitterAPIExchange
     /**
      * Get the HTTP status code for the previous request
      * 
-     * @return number The HTTP status code from the API server
+     * @return integer
      */
     public function getHttpStatusCode() 
     {
