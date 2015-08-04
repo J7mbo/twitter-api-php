@@ -60,6 +60,13 @@ class TwitterAPIExchange
     public $requestMethod;
 
     /**
+     * The HTTP status code from the previous request
+     * 
+     * @var int
+     */
+    protected $httpStatusCode;
+
+    /**
      * Create the API access object. Requires an array of settings::
      * oauth access token, oauth access token secret, consumer key, consumer secret
      * These are all available by creating your own application on dev.twitter.com
@@ -297,6 +304,8 @@ class TwitterAPIExchange
         $feed = curl_init();
         curl_setopt_array($feed, $options);
         $json = curl_exec($feed);
+        
+        $this->httpStatusCode = curl_getinfo($feed, CURLINFO_HTTP_CODE);
 
         if (($error = curl_error($feed)) !== '')
         {
@@ -380,5 +389,15 @@ class TwitterAPIExchange
         }
 
         return $this->buildOauth($url, $method)->performRequest(true, $curlOptions);
+    }
+    
+    /**
+     * Get the HTTP status code for the previous request
+     * 
+     * @return integer
+     */
+    public function getHttpStatusCode() 
+    {
+        return $this->httpStatusCode;
     }
 }
