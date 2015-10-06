@@ -72,7 +72,8 @@ class TwitterAPIExchange
      * These are all available by creating your own application on dev.twitter.com
      * Requires the cURL library
      *
-     * @throws \Exception When cURL isn't installed or incorrect settings parameters are provided
+     * @throws \RuntimeException When cURL isn't loaded
+     * @throws \InvalidArgumentException When incomplete settings parameters are provided
      *
      * @param array $settings
      */
@@ -80,7 +81,7 @@ class TwitterAPIExchange
     {
         if (!function_exists('curl_init'))
         {
-            throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
+            throw new RuntimeException('TwitterAPIExchange requires cURL extension to be loaded, see: http://curl.haxx.se/docs/install.html');
         }
 
         if (!isset($settings['oauth_access_token'])
@@ -88,7 +89,7 @@ class TwitterAPIExchange
             || !isset($settings['consumer_key'])
             || !isset($settings['consumer_secret']))
         {
-            throw new Exception('Make sure you are passing in the correct parameters');
+            throw new InvalidArgumentException('Incomplete settings passed to TwitterAPIExchange');
         }
 
         $this->oauth_access_token = $settings['oauth_access_token'];
