@@ -78,7 +78,7 @@ class TwitterAPIExchange
      */
     public function __construct(array $settings)
     {
-        if (!in_array('curl', get_loaded_extensions()))
+        if (!function_exists('curl_init'))
         {
             throw new Exception('You need to install cURL, see: http://curl.haxx.se/docs/install.html');
         }
