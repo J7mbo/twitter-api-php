@@ -166,7 +166,7 @@ class TwitterAPIExchange
             }
         }
 
-        $this->getfield = '?' . http_build_query($params);
+        $this->getfield = '?' . http_build_query($params, '', '&');
 
         return $this;
     }
@@ -298,7 +298,7 @@ class TwitterAPIExchange
 
         if (!is_null($postfields))
         {
-            $options[CURLOPT_POSTFIELDS] = http_build_query($postfields);
+            $options[CURLOPT_POSTFIELDS] = http_build_query($postfields, '', '&');
         }
         else
         {
