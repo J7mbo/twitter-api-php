@@ -68,7 +68,7 @@ $url = 'https://api.twitter.com/1.1/blocks/create.json';
 $requestMethod = 'POST';
 ```
 
-#### Choose POST fields ####
+#### Choose POST fields (or PUT fields if you're using PUT) ####
 
 ```php
 $postfields = array(
