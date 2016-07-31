@@ -288,13 +288,13 @@ class TwitterAPIExchange
             $curlOptions[CURLOPT_CUSTOMREQUEST] = $this->requestMethod;
         }
 
-        $options = array(
+        $options = $curlOptions + array(
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_HEADER => false,
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 10,
-        ) + $curlOptions;
+        );
 
         if (!is_null($postfields))
         {
