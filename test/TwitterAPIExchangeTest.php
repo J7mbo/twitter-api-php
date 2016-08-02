@@ -322,4 +322,17 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         /** If we get this back, then it looks like we can support PUT! :-) **/
         $this->assertContains('UNAUTHORIZED_CLIENT_APPLICATION', $data);
     }
+
+    public function testDelete()
+    {
+        $params = array();
+
+        // foobaa is sandbox Ads account id
+        $url = 'https://ads-api-sandbox.twitter.com/1/accounts/foobaa';
+        $method = 'DELETE';
+
+        $data = $this->exchange->request($url, $method, $params);
+
+        $this->assertContains('UNAUTHORIZED_CLIENT_APPLICATION', $data);
+    }
 }

@@ -204,9 +204,9 @@ class TwitterAPIExchange
      */
     public function buildOauth($url, $requestMethod)
     {
-        if (!in_array(strtolower($requestMethod), array('post', 'get', 'put')))
+        if (!in_array(strtolower($requestMethod), array('post', 'get', 'put', 'delete')))
         {
-            throw new Exception('Request method must be either POST, GET or PUT');
+            throw new Exception('Request method must be either POST, GET or PUT or DELETE');
         }
 
         $consumer_key              = $this->consumer_key;
@@ -283,7 +283,7 @@ class TwitterAPIExchange
         $getfield = $this->getGetfield();
         $postfields = $this->getPostfields();
 
-        if (strtolower($this->requestMethod) === 'put')
+        if (in_array(strtolower($this->requestMethod), array('put', 'delete')))
         {
             $curlOptions[CURLOPT_CUSTOMREQUEST] = $this->requestMethod;
         }
