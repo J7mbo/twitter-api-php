@@ -111,7 +111,7 @@ class TwitterAPIExchange
     {
         if (!is_null($this->getGetfield()))
         {
-            throw new Exception('You can only choose get OR post fields.');
+            throw new Exception('You can only choose get OR post fields (post fields include put).');
         }
 
         if (isset($array['status']) && substr($array['status'], 0, 1) === '@')
@@ -130,7 +130,8 @@ class TwitterAPIExchange
         $this->postfields = $array;
 
         // rebuild oAuth
-        if (isset($this->oauth['oauth_signature'])) {
+        if (isset($this->oauth['oauth_signature']))
+        {
             $this->buildOauth($this->url, $this->requestMethod);
         }
 
@@ -150,7 +151,7 @@ class TwitterAPIExchange
     {
         if (!is_null($this->getPostfields()))
         {
-            throw new Exception('You can only choose get OR post fields.');
+            throw new Exception('You can only choose get OR post / post fields.');
         }
 
         $getfields = preg_replace('/^\?/', '', explode('&', $string));
@@ -165,7 +166,7 @@ class TwitterAPIExchange
             }
         }
 
-        $this->getfield = '?' . http_build_query($params);
+        $this->getfield = '?' . http_build_query($params, '', '&');
 
         return $this;
     }
@@ -203,9 +204,9 @@ class TwitterAPIExchange
      */
     public function buildOauth($url, $requestMethod)
     {
-        if (!in_array(strtolower($requestMethod), array('post', 'get')))
+        if (!in_array(strtolower($requestMethod), array('post', 'get', 'put', 'delete')))
         {
-            throw new Exception('Request method must be either POST or GET');
+            throw new Exception('Request method must be either POST, GET or PUT or DELETE');
         }
 
         $consumer_key              = $this->consumer_key;
@@ -253,9 +254,9 @@ class TwitterAPIExchange
         $oauth_signature = base64_encode(hash_hmac('sha1', $base_info, $composite_key, true));
         $oauth['oauth_signature'] = $oauth_signature;
 
-        $this->url = $url;
+        $this->url           = $url;
         $this->requestMethod = $requestMethod;
-        $this->oauth = $oauth;
+        $this->oauth         = $oauth;
 
         return $this;
     }
@@ -282,17 +283,22 @@ class TwitterAPIExchange
         $getfield = $this->getGetfield();
         $postfields = $this->getPostfields();
 
-        $options = array(
+        if (in_array(strtolower($this->requestMethod), array('put', 'delete')))
+        {
+            $curlOptions[CURLOPT_CUSTOMREQUEST] = $this->requestMethod;
+        }
+
+        $options = $curlOptions + array(
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_HEADER => false,
             CURLOPT_URL => $this->url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 10,
-        ) + $curlOptions;
+        );
 
         if (!is_null($postfields))
         {
-            $options[CURLOPT_POSTFIELDS] = http_build_query($postfields);
+            $options[CURLOPT_POSTFIELDS] = http_build_query($postfields, '', '&');
         }
         else
         {

@@ -105,7 +105,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
     {
         $url    = 'https://api.twitter.com/1.1/statuses/home_timeline.json';
         $method = 'GET';
-        $params = '?user_id=3232926711&max_id=595155660494471168';
+        $params = '?user_id=3232926711&max_id=756123701888839681';
 
         $data     = $this->exchange->request($url, $method, $params);
         $expected = "Test Tweet";
@@ -303,5 +303,36 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
 
         $data = $this->exchange->request($url, $method, $params);
         $this->assertContains('created_at', $data);
+    }
+
+    /**
+     * Thanks to Sharath at eywamedia for bringint this to my attention
+     */
+    public function testPut()
+    {
+        $url    = 'https://ads-api.twitter.com/1/accounts/hkk5/campaigns/8zwv';
+        $method = 'PUT';
+        $params = array (
+            'name'   => 'Important',
+            'paused' => true
+        );
+
+        $data = $this->exchange->request($url, $method, $params);
+
+        /** If we get this back, then it looks like we can support PUT! :-) **/
+        $this->assertContains('UNAUTHORIZED_CLIENT_APPLICATION', $data);
+    }
+
+    public function testDelete()
+    {
+        $params = array();
+
+        // foobaa is sandbox Ads account id
+        $url = 'https://ads-api-sandbox.twitter.com/1/accounts/foobaa';
+        $method = 'DELETE';
+
+        $data = $this->exchange->request($url, $method, $params);
+
+        $this->assertContains('UNAUTHORIZED_CLIENT_APPLICATION', $data);
     }
 }
