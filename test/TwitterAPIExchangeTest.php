@@ -310,7 +310,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
      */
     public function testPut()
     {
-        $url    = 'https://ads-api.twitter.com/0/accounts/hkk5/campaigns/8zwv';
+        $url    = 'https://ads-api.twitter.com/1/accounts/hkk5/campaigns/8zwv';
         $method = 'PUT';
         $params = array (
             'name'   => 'Important',
