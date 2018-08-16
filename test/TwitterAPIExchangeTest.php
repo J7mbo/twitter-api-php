@@ -10,22 +10,22 @@
 class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var string
+     * @var string THIS IS INTENTIONALLY PUBLIC, YOU CAN DO WHAT YOU WANT WITH IT, I'LL JUST REGEN THE TOKENS...
      */
-    const CONSUMER_KEY = 'VXD22AD9kcNyNgsfW6cwkWRkw';
+    const CONSUMER_KEY = 'aXylXZkWjeMayW6Q42ktpIDvh';
 
     /**
-     * @var string
+     * @var string THIS IS INTENTIONALLY PUBLIC, YOU CAN DO WHAT YOU WANT WITH IT, I'LL JUST REGEN THE TOKENS...
      */
-    const CONSUMER_SECRET = 'y0k3z9Y46V0DMAKGe4Az2aDtqNt9aXjg3ssCMCldUheGBT0YL9';
+    const CONSUMER_SECRET = '3wFEktgIQlEXXHY986P3egH85Z1H8LFnA1UlEopnRSFvTLoiDZ';
 
     /**
-     * @var string
+     * @var string THIS IS INTENTIONALLY PUBLIC, YOU CAN DO WHAT YOU WANT WITH IT, I'LL JUST REGEN THE TOKENS...
      */
     const OAUTH_ACCESS_TOKEN = '3232926711-kvMvNK5mFJlUFzCdtw3ryuwZfhIbLJtPX9e8E3Y';
 
     /**
-     * @var string
+     * @var string THIS IS INTENTIONALLY PUBLIC, YOU CAN DO WHAT YOU WANT WITH IT, I'LL JUST REGEN THE TOKENS...
      */
     const OAUTH_ACCESS_TOKEN_SECRET = 'EYrFp0lfNajBslYV3WgAGmpHqYZvvNxP5uxxSq8Dbs1wa';
 
@@ -306,11 +306,11 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Thanks to Sharath at eywamedia for bringint this to my attention
+     * Thanks to Sharath at eywamedia for bringing this to my attention
      */
     public function testPut()
     {
-        $url    = 'https://ads-api.twitter.com/1/accounts/hkk5/campaigns/8zwv';
+        $url    = 'https://ads-api.twitter.com/3/accounts/hkk5/campaigns/8zwv';
         $method = 'PUT';
         $params = array (
             'name'   => 'Important',
@@ -328,7 +328,7 @@ class TwitterAPIExchangeTest extends \PHPUnit_Framework_TestCase
         $params = array();
 
         // foobaa is sandbox Ads account id
-        $url = 'https://ads-api-sandbox.twitter.com/1/accounts/foobaa';
+        $url = 'https://ads-api-sandbox.twitter.com/3/accounts/foobaa';
         $method = 'DELETE';
 
         $data = $this->exchange->request($url, $method, $params);
