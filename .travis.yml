@@ -2,6 +2,12 @@ language: php
 php:
   - "5.3"
 
+matrix:
+  include:
+    - php: 5.3
+      dist: precise
+
+
 before_install:
   - composer self-update
 
